@@ -3,10 +3,13 @@ import {StyleSheet, Text, View} from 'react-native';
 
 const App = () => (
   <View style = {styles.background}>
+    <View style = {styles.foreground}>
       <View style = {styles.titleContainer}>
         <Text style = {styles.title}>Dictionary App</Text>
       </View>
       <View style = {styles.newWordContainer}>
+        <Text style = {[styles.subtitle, {color: '#D8315B'}]}>New Word</Text>
+        <Text style = {styles.newWord}>Testing Text</Text>
       </View>
       <View style = {styles.searchContainer}>
       </View>
@@ -14,6 +17,7 @@ const App = () => (
       </View>
       <View style = {styles.toolbarContainer}>
       </View>
+    </View>
   </View>
 );
 
@@ -22,11 +26,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000000'
   },
+  foreground: {
+    flex: 1,
+    paddingLeft: '11%',
+    paddingRight: '11%',
+  },
   titleContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'skyblue'
+    backgroundColor: '#000000'
   },
   title: {
     fontSize: 30,
@@ -35,7 +44,6 @@ const styles = StyleSheet.create({
   },
   newWordContainer: {
     flex: 2,
-    backgroundColor: '#D8315B'
   },
   searchContainer: {
     flex: 3,
@@ -48,6 +56,23 @@ const styles = StyleSheet.create({
   toolbarContainer: {
     flex: 5,
     backgroundColor: '#000000'
+  },
+  subtitle: {
+    fontSize: 20,
+    fontFamily: 'roboto_bold',
+  },
+  newWord: {
+    fontSize: 24,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    fontFamily: 'roboto_bold',
+    color: '#000000',
+    backgroundColor: '#FFFAFF',
+    borderWidth: 5,
+    borderRadius: 15,
+    width: '100%',
+    height: '60%',
+    borderColor: '#D8315B'
   }
 });
 
