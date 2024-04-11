@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import NewWord from './NewWord';
 
 const App = () => (
   <View style = {styles.background}>
@@ -8,8 +9,7 @@ const App = () => (
         <Text style = {styles.title}>Dictionary App</Text>
       </View>
       <View style = {styles.newWordContainer}>
-        <Text style = {[styles.subtitle, {color: '#D8315B'}]}>New Word</Text>
-        <Text style = {styles.newWord}>Testing Text</Text>
+        <NewWord/>
       </View>
       <View style = {styles.searchContainer}>
       </View>
@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
     color: '#FFFAFF'
   },
   newWordContainer: {
-    flex: 2,
+    backgroundColor: 'white',
+    height: '25%'
   },
   searchContainer: {
     flex: 3,
@@ -57,23 +58,6 @@ const styles = StyleSheet.create({
     flex: 5,
     backgroundColor: '#000000'
   },
-  subtitle: {
-    fontSize: 20,
-    fontFamily: 'roboto_bold',
-  },
-  newWord: {
-    fontSize: 24,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    fontFamily: 'roboto_bold',
-    color: '#000000',
-    backgroundColor: '#FFFAFF',
-    borderWidth: 5,
-    borderRadius: 15,
-    width: '100%',
-    height: '60%',
-    borderColor: '#D8315B'
-  }
 });
 
 export default App;

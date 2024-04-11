@@ -51,6 +51,7 @@
 	<array>
 		<string>roboto.ttf</string>
 		<string>roboto_bold.ttf</string>
+		<string>fontawesome.ttf</string>
 	</array>
 </dict>
 </plist>
