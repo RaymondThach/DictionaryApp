@@ -1,3 +1,5 @@
+//View and stylesheet for New Word component rendered on Home view
+
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
