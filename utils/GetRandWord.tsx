@@ -2,17 +2,15 @@
 
 //Use /word endpoint
 //Return a single random word
-//TODO: adjust logic for when function fails to receive a word (e.g. when API is down)
 const GetRandWord = async () => {
     try {
         const response = await fetch(
             'https://random-word-api.herokuapp.com/word'
         );
-        const word = await response.json();
-        console.log(word);
-        return word;
+        const json = await response.json();
+        return json[0];
     } catch (e) {
-        console.log(e);
+        return "No word available";
     }
 };
 

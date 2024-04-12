@@ -21,7 +21,7 @@ it('renders correctly', () => {
 //for GetRandWord function, sends the word "test" wrapped in two promises
 global.fetch = jest.fn(() => 
   Promise.resolve({
-    json: () => Promise.resolve('test')
+    json: () => Promise.resolve(['test'])
   }), 
 ) as jest.Mock;
 

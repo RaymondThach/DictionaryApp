@@ -1,17 +1,31 @@
 //View and stylesheet for New Word component rendered on Home view
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import GetRandWord from '../utils/GetRandWord';
+
+
 
 const NewWord = () => {
-    return  <View>
-                <Text style = {[styles.subtitle, {color: '#D8315B'}]}>New Word</Text>
-                <Text style = {styles.newWord}>Testing Text</Text>
-                <View style = {{flexDirection: 'row'}}>
-                    <Text style = {[styles.icons]}></Text>
-                    <Text style = {[styles.icons, {paddingLeft: '88%'}]}></Text>
-                </View>
-            </View>
+  
+  //State for showing the New Word
+  const [word, setWord] = useState(String);
+
+  //Call the API once on render to get first new word
+  useEffect(() => {
+    GetRandWord().then((word) => {
+      setWord(word);
+    });
+  }, []);
+
+  return  <View>
+              <Text style = {[styles.subtitle, {color: '#D8315B'}]}>New Word</Text>
+              <Text style = {styles.newWord}>{word}</Text>
+              <View style = {{flexDirection: 'row'}}>
+                  <Text style = {[styles.icons]}></Text>
+                  <Text style = {[styles.icons, {paddingLeft: '88%'}]}></Text>
+              </View>
+          </View>
 };
 
 const styles = StyleSheet.create({
