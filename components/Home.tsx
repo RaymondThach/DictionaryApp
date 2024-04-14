@@ -46,19 +46,19 @@ const styles = StyleSheet.create({
     color: '#FFFAFF'
   },
   newWordContainer: {
-    backgroundColor: 'white',
-    height: '25%'
+    backgroundColor: '000000',
+    height: '27%'
   },
   searchContainer: {
-    flex: 3,
+    height: '27%',
     backgroundColor: '#3E92CC'
   },
   revisionContainer: {
-    flex: 4,
+    height: '30%',
     backgroundColor: '#0A2463'
   },
   toolbarContainer: {
-    flex: 5,
+    flex: 1,
     backgroundColor: '#000000'
   },
 });

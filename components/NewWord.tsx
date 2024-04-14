@@ -3,11 +3,10 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import GetRandWord from '../utils/GetRandWord';
-
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 
 const NewWord = () => {
-  
   //State for showing the New Word
   const [word, setWord] = useState(String);
 
@@ -21,9 +20,10 @@ const NewWord = () => {
   return  <View>
               <Text style = {[styles.subtitle, {color: '#D8315B'}]}>New Word</Text>
               <Text style = {styles.newWord}>{word}</Text>
-              <View style = {{flexDirection: 'row'}}>
-                  <Text style = {[styles.icons]}></Text>
-                  <Text style = {[styles.icons, {paddingLeft: '88%'}]}></Text>
+              <View style = {styles.buttonContainer}>
+                  <Icon.Button name = {'sync-alt'} color = '#D8315B' borderRadius = {15} backgroundColor={'#1E1B18'} onPress={async () => setWord(await GetRandWord())}>
+                    <Text style = {styles.subtitle}>Refresh</Text>
+                  </Icon.Button>  
               </View>
           </View>
 };
@@ -47,10 +47,10 @@ const styles = StyleSheet.create({
       height: '60%',
       borderColor: '#D8315B',
     },
-    icons: {
-      fontFamily: 'fontawesome', 
-      fontSize: 20,
-      color: '#D8315B'
+    buttonContainer: {
+      flexDirection: 'row-reverse',
+      paddingTop: '2%',
+      paddingBottom: '2%'
     }
   });
 

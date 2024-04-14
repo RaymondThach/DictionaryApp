@@ -10,7 +10,7 @@ const GetRandWord = async () => {
         const json = await response.json();
         return json[0];
     } catch (e) {
-        return "No word available";
+        return 'No Word Available';
     }
 };
 
