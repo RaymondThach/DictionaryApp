@@ -9,11 +9,15 @@ import WordModal from './WordModal';
 const Home = () => {
   //State variable for showing the modal for a word
   const [showingModal, setShowingModal] = useState(false);
-  
+  //State variable for setting the color of the modal for a word
+  const [modalColor, setModalColor] = useState(String);
+  //State for showing the New Word
+  const [newWord, setNewWord] = useState(String);
+
   return <View style = {styles.background}>
             { showingModal
                 ? <View style = {styles.modal}>
-                    <WordModal setShowingModal = {setShowingModal }/>
+                    <WordModal setShowingModal = {setShowingModal} modalColor = {modalColor} newWord = {newWord}/>
                   </View>
                 : null
             }
@@ -22,7 +26,7 @@ const Home = () => {
                 <Text style = {styles.title}>Dictionary App</Text>
               </View>
               <View style = {styles.newWordContainer}>
-                <NewWord setShowingModal = {setShowingModal}/>
+                <NewWord setShowingModal = {setShowingModal} setModalColor = {setModalColor} setNewWord = {setNewWord} newWord = {newWord}/>
               </View>
               <View style = {styles.searchContainer}>
               </View>
@@ -45,15 +49,16 @@ const styles = StyleSheet.create({
     paddingRight: '11%',
   },
   modal: {
+    zIndex: 1,
+    position: 'absolute',
+    justifyContent: 'center',
     height: '100%',
     width: '100%',
     paddingLeft: '9%',
     paddingRight: '9%',
     paddingTop: '25%',
     paddingBottom: '25%',
-    justifyContent: 'center',
-    position: 'absolute',
-    zIndex: 1,
+    
   },
   titleContainer: {
     flex: 1,

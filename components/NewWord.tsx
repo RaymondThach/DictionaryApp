@@ -5,22 +5,20 @@ import {View, Text, StyleSheet} from 'react-native';
 import GetRandWord from '../utils/GetRandWord';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const NewWord = ({setShowingModal}: any) => {
-  //State for showing the New Word
-  const [word, setWord] = useState(String);
-
+const NewWord = ({setShowingModal, setModalColor, setNewWord, newWord}: any) => {
+  
   //Call the random word API once on render to get first new word
   useEffect(() => {
     GetRandWord().then((word) => {
-      setWord(word);
+      setNewWord(word);
     });
   }, []);
 
   return  <View>
               <Text style = {[styles.subtitle, {color: '#D8315B'}]}>New Word</Text>
-              <Text style = {styles.newWord} onPress = {async () => {await setShowingModal(true); console.log('hello');}}>{word}</Text>
+              <Text style = {styles.newWord} onPress = {async () => {await setShowingModal(true); setModalColor('#D8315B')}}>{newWord}</Text>
               <View style = {styles.buttonContainer}>
-                  <Icon.Button name = {'sync-alt'} color = '#D8315B' borderRadius = {15} backgroundColor={'#1E1B18'} onPress={async () => setWord(await GetRandWord())}>
+                  <Icon.Button name = {'sync-alt'} color = '#D8315B' borderRadius = {15} backgroundColor={'#1E1B18'} onPress={async () => setNewWord(await GetRandWord())}>
                     <Text style = {styles.subtitle}>Refresh</Text>
                   </Icon.Button>  
               </View>

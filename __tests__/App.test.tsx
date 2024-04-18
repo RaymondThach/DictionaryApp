@@ -9,6 +9,7 @@ import GetRandWord from '../utils/GetRandWord';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
+import GetWordDef from '../utils/GetWordDef';
 
 // Note: test renderer must be required after react-native.
 //import renderer from 'react-test-renderer';
@@ -39,4 +40,10 @@ it('handles exceptions with no words sent from API', async() => {
   ) as jest.Mock;
   const word = await GetRandWord();
   expect(word).toEqual("No Word Available");
+});
+
+//GetWordDef()
+it('gets the definition of a given word and API key', async () => {
+  const def = await GetWordDef();
+  expect(def).toEqual(typeof Object)
 });
