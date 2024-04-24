@@ -14,10 +14,13 @@ const Home = () => {
   //State for showing the New Word
   const [newWord, setNewWord] = useState(String);
 
+  //State variable for the JSON from GetWordDef()
+  const [results, setResults] = useState(JSON);
+
   return <View style = {styles.background}>
             { showingModal
                 ? <View style = {styles.modal}>
-                    <WordModal setShowingModal = {setShowingModal} modalColor = {modalColor} newWord = {newWord}/>
+                    <WordModal setShowingModal = {setShowingModal} modalColor = {modalColor} newWord = {newWord} results = {results}/>
                   </View>
                 : null
             }
@@ -26,7 +29,7 @@ const Home = () => {
                 <Text style = {styles.title}>Dictionary App</Text>
               </View>
               <View style = {styles.newWordContainer}>
-                <NewWord setShowingModal = {setShowingModal} setModalColor = {setModalColor} setNewWord = {setNewWord} newWord = {newWord}/>
+                <NewWord setShowingModal = {setShowingModal} setModalColor = {setModalColor} setNewWord = {setNewWord} newWord = {newWord} setResults= {setResults}/>
               </View>
               <View style = {styles.searchContainer}>
               </View>
