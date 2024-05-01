@@ -13,7 +13,6 @@ const Home = () => {
   const [modalColor, setModalColor] = useState(String);
   //State for showing the New Word
   const [newWord, setNewWord] = useState(String);
-
   //State variable for the JSON from GetWordDef()
   const [results, setResults] = useState(JSON);
 
