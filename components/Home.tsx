@@ -19,7 +19,7 @@ const Home = () => {
   return <View style = {styles.background}>
             { showingModal
                 ? <View style = {styles.modal}>
-                    <WordModal setShowingModal = {setShowingModal} modalColor = {modalColor} newWord = {newWord} results = {results}/>
+                    <WordModal setShowingModal = {setShowingModal} modalColor = {modalColor} results = {results} setResults = {setResults}/>
                   </View>
                 : null
             }
