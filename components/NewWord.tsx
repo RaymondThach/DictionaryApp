@@ -16,7 +16,7 @@ const NewWord = ({setShowingModal, setModalColor, setNewWord, newWord, setResult
 
   return  <View>
               <Text style = {[styles.subtitle, {color: '#D8315B'}]}>New Word</Text>
-              <Text style = {styles.newWord} onPress = {async () => {await GetWordDef(newWord).then((res)=> {setResults(res)}); setShowingModal(true); setModalColor('#D8315B')}}>{newWord}</Text>
+              <Text style = {styles.newWord} onPress = {async () => {await GetWordDef(newWord).then((res)=> {setResults(res)}); setShowingModal(true); setModalColor('#D8315B')}}>{newWord ? newWord : 'Loading...'}</Text>
               <View style = {styles.buttonContainer}>
                   <Icon.Button name = {'sync-alt'} color = '#D8315B' borderRadius = {15} backgroundColor={'#1E1B18'} onPress={async () => setNewWord(await GetRandWord())}>
                     <Text style = {styles.subtitle}>Refresh</Text>

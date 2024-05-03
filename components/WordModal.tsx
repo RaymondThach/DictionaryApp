@@ -1,6 +1,6 @@
 //Modal (popup window) containing the details of a word. Used for New Word, Search, Save and Revision List components.
 import React, {useState, useEffect, useRef} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import GetWordDef from '../utils/GetWordDef';
 import Sound from 'react-native-sound';
@@ -30,30 +30,36 @@ const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
         console.log(results);
     }, [results]);
 
-    return  <View style={[styles.container, {borderColor: modalColor}]}>
-                
+    return  <View style={[styles.container, {borderColor: modalColor}]}>  
                 {   
                     results 
                     ?   <> 
                         { results.id
                             ?   <>
-                                    <View style={styles.topBar}>
-                                        <Icon name='times' color = {modalColor} size = {styles.topBar.fontSize} onPress = {() => 
+                                    <View style={styles.iconContainer}>
+                                        <Icon name='times' color = {modalColor} size = {styles.iconContainer.fontSize} onPress = {() => 
                                             {setShowingModal(false); {pronounce? pronounce.release() : null}}}></Icon>
-                                        <Icon name='volume-up' color = {modalColor} size = {styles.topBar.fontSize} onPress = {() => pronounce.play()}></Icon>
+                                        <Icon name='volume-up' color = {modalColor} size = {styles.iconContainer.fontSize} onPress = {() => pronounce.play()}></Icon>
                                     </View>
                                     <View style={styles.loaded}>
                                         <Text style={[styles.title, {color: modalColor}]}>{results.id}</Text>
                                         <Text style={[styles.subtitle, {color: modalColor}]}>Definition</Text>
                                         <Text style={styles.text}>{results.def.map((def: string) => '- ' + def + '\n')}</Text>
                                     </View>
+                                    <Text style={[styles.subtitle, {color: modalColor}]}>Your Notes:</Text>
+                                    <View style = {styles.inputContainer}>
+                                        <TextInput multiline= {true} style = {[styles.textInput, {borderColor: modalColor}]}/>
+                                    </View>
+                                    <View style={styles.iconContainer}>
+                                        <Icon name = 'save' color = {modalColor} size = {styles.iconContainer.fontSize} solid></Icon>
+                                    </View>
                                 </>
                             :   <>
                                 {   results.suggestions
                                     ?   
                                         <>
-                                            <View style={styles.topBar}>
-                                                <Icon name='times' color = {modalColor} size = {styles.topBar.fontSize} onPress = {() => 
+                                            <View style={styles.iconContainer}>
+                                                <Icon name='times' color = {modalColor} size = {styles.iconContainer.fontSize} onPress = {() => 
                                                     {setShowingModal(false); {pronounce? pronounce.release() : null}}}></Icon>
                                             </View>
                                             <View style={styles.loaded}>
@@ -64,8 +70,8 @@ const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
                                             </View>
                                         </>
                                     :   <>
-                                            <View style={styles.topBar}>
-                                                <Icon name='times' color = {modalColor} size = {styles.topBar.fontSize} onPress = {() => 
+                                            <View style={styles.iconContainer}>
+                                                <Icon name='times' color = {modalColor} size = {styles.iconContainer.fontSize} onPress = {() => 
                                                     {setShowingModal(false); {pronounce? pronounce.release() : null}}}></Icon>
                                             </View>
                                             <View style={styles.loaded}>
@@ -95,11 +101,10 @@ const styles = StyleSheet.create({
     },
     loaded: {
         flex: 1,
-        backgroundColor: 'pink',
         paddingLeft: '1%',
         paddingRight: '1%',
     },
-    topBar: {
+    iconContainer: {
         flexDirection: 'row-reverse',
         justifyContent: 'space-between',
         paddingTop: '1%',
@@ -127,6 +132,20 @@ const styles = StyleSheet.create({
         fontFamily: 'roboto_bold', 
         color: '#007FFF',
         textDecorationLine: 'underline'
+    },
+    inputContainer: {
+        height: '25%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        
+    },
+    textInput: {
+        flex: 1,
+        width: '90%',
+        borderWidth: 5,
+        borderRadius: 15,
+        textAlignVertical: 'top',
+        padding: '2%'
     }
 });
 
