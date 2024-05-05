@@ -7,7 +7,7 @@ const GetWordDef = async (searchWord: String) => {
     const word = searchWord;
 
     try {
-        console.log(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${key}`);
+        //console.log(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${key}`);
         const response = await fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${key}`);
         const json = await response.json();
         if (json[0].meta){

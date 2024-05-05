@@ -1,10 +1,11 @@
 //View and stylesheet for the Home screen containing the main components
 //First view to render on application start
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import NewWord from './NewWord';
 import WordModal from './WordModal';
+import {getDBConnection, createTable} from '../services/db';
 
 const Home = () => {
   //State variable for showing the modal for a word
@@ -15,6 +16,20 @@ const Home = () => {
   const [newWord, setNewWord] = useState(String);
   //State variable for the JSON from GetWordDef()
   const [results, setResults] = useState(JSON);
+
+  //Establish connection to database and create LearningWords table if it doesn't exist
+  const connectDB = async () => {
+    try {
+      const db = await getDBConnection();
+      await createTable(db);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    connectDB();
+  }, [])
 
   return <View style = {styles.background}>
             { showingModal

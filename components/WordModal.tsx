@@ -4,9 +4,12 @@ import {View, Text, StyleSheet, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import GetWordDef from '../utils/GetWordDef';
 import Sound from 'react-native-sound';
+import {insertWord, getDBConnection, getAllWords, deleteAll, createTable, getWord} from '../services/db';
 
 const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
-    
+    //State for the text input for user notes for a word
+    const [notesInput, setNotesInput] = useState('')
+
     //Assign Sound resources to the audio link (resources to be cleared on modal close)
     if (results.audio) {
         var pronounce = new Sound(results.audio, '', (error: any) => {
@@ -25,9 +28,19 @@ const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
         } 
     }, []);
 
+    //Function for Save button to insert new word/update existing word with user's notes
+    const insertNewWord = async (entries: string[]) => {
+        try {
+          const db = await getDBConnection();
+          await insertWord(db, entries);
+        } catch (error) {
+          console.log(error);
+        }
+    };
+
     //Re-render when a suggested word is selected
     useEffect(() => {
-        console.log(results);
+        //console.log(results);
     }, [results]);
 
     return  <View style={[styles.container, {borderColor: modalColor}]}>  
@@ -48,10 +61,11 @@ const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
                                     </View>
                                     <Text style={[styles.subtitle, {color: modalColor}]}>Your Notes:</Text>
                                     <View style = {styles.inputContainer}>
-                                        <TextInput multiline= {true} style = {[styles.textInput, {borderColor: modalColor}]}/>
+                                        <TextInput multiline= {true} style = {[styles.textInput, {borderColor: modalColor}]} onChangeText = {(input) => setNotesInput(input)}/>
                                     </View>
                                     <View style={styles.iconContainer}>
-                                        <Icon name = 'save' color = {modalColor} size = {styles.iconContainer.fontSize} solid></Icon>
+                                        <Icon name = 'save' color = {modalColor} size = {styles.iconContainer.fontSize} solid onPress = {() => 
+                                            insertNewWord([results.id, results.def, results.audio, notesInput])}></Icon>
                                     </View>
                                 </>
                             :   <>
