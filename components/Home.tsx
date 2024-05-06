@@ -6,6 +6,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import NewWord from './NewWord';
 import WordModal from './WordModal';
 import {getDBConnection, createTable} from '../services/db';
+import SearchWord from './SearchWord';
 
 const Home = () => {
   //State variable for showing the modal for a word
@@ -46,6 +47,7 @@ const Home = () => {
                 <NewWord setShowingModal = {setShowingModal} setModalColor = {setModalColor} setNewWord = {setNewWord} newWord = {newWord} setResults= {setResults}/>
               </View>
               <View style = {styles.searchContainer}>
+                <SearchWord setResults = {setResults} setShowingModal = {setShowingModal} setModalColor = {setModalColor}/>
               </View>
               <View style = {styles.revisionContainer}>
               </View>
@@ -89,12 +91,13 @@ const styles = StyleSheet.create({
     color: '#FFFAFF'
   },
   newWordContainer: {
-    backgroundColor: '000000',
+    backgroundColor: '#000000',
     height: '27%'
   },
   searchContainer: {
     height: '27%',
-    backgroundColor: '#3E92CC'
+    backgroundColor: '#000000'
+    //backgroundColor: '#3E92CC'
   },
   revisionContainer: {
     height: '30%',
