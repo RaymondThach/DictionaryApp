@@ -24,7 +24,7 @@ const GetWordDef = async (searchWord: String) => {
                 subDirectory = audioName[0];
             }
             const audioLink = `https://media.merriam-webster.com/audio/prons/en/us/mp3/${subDirectory}/${audioName}.mp3`;
-            const result = {id: json[0].meta.id, def: json[0].shortdef, audio: audioLink};
+            const result = {word: json[0].meta.id, definition: json[0].shortdef, audio: audioLink};
             //console.log(result);
             return result;
         }

@@ -1,6 +1,6 @@
 //View and stylesheet for SearchWord component rendered on Home view
 
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import GetWordDef from '../utils/GetWordDef';
@@ -11,7 +11,7 @@ const SearchWord = ({setShowingModal, setResults, setModalColor}: any) => {
   const [searchWord, setSearchWord] = useState('');
 
   return  <View>
-              <Text style = {[styles.subtitle, {color: '#3E92CC'}]}>Define</Text>
+              <Text style = {[styles.subtitle, {color: '#3E92CC'}]}>Find Definition</Text>
               <TextInput style = {styles.Search} placeholder='Enter a word' onChangeText={(text) => setSearchWord(text)}></TextInput>
               <View style = {styles.buttonContainer}>
                   <Icon.Button name = {'search'} color = '#3E92CC' borderRadius = {15} backgroundColor={'#1E1B18'}>
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
       borderWidth: 5,
       borderRadius: 15,
       width: '100%',
-      height: '60%',
+      height: '50%',
       borderColor: '#3E92CC',
     },
     buttonContainer: {

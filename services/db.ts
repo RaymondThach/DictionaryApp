@@ -28,7 +28,7 @@ export const createTable = async (db: SQLiteDatabase) => {
 };
 
 //Get a word (row), return the result as a promise
-export const getWord = async (db: SQLiteDatabase, word: string) => {
+export const getPromWord = async (db: SQLiteDatabase, word: string) => {
     const get_word_query = `SELECT * FROM LearningWords WHERE word = '${word}'`;
     try {
         const results = await db.executeSql(get_word_query);
@@ -39,9 +39,37 @@ export const getWord = async (db: SQLiteDatabase, word: string) => {
     }
 };
 
+//Get a word (row), return the result as object
+export const getWord = async (db: SQLiteDatabase, word: string) => {
+    const results = await getPromWord(db, word)
+    try {
+        return results[0].rows.item(0);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 //Retrieve all columns of all words in the LearningWords table
+export const getAll = async (db: SQLiteDatabase) => {
+    const get_all__query = `SELECT * FROM LearningWords`;
+    try {
+        const results = await db.executeSql(get_all__query);
+        const entries: string[] = [];
+        results?.forEach((result) => {
+            for (let index = 0; index < result.rows.length; index++) {
+                          entries.push(result.rows.item(index))
+                }
+        });
+        return entries;
+    } catch (error) {
+        console.log(error);
+        throw Error('Unable to get all');
+    }
+};
+
+//Retrieve all words in the LearningWords table
 export const getAllWords = async (db: SQLiteDatabase) => {
-    const get_all_words_query = `SELECT * FROM LearningWords`;
+    const get_all_words_query = `SELECT word FROM LearningWords`;
     try {
         const results = await db.executeSql(get_all_words_query);
         const entries: string[] = [];

@@ -20,12 +20,19 @@ const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
         });
     }
     
+    const defToString = (arr: []) => {
+        let string_definition = arr.join('\n- ')
+        return string_definition;
+
+    };
+
     //Set volume for audio file to 100% and loop to one on render
     useEffect(()=> {
         if (pronounce) {
             pronounce.setVolume(1);
             pronounce.setNumberOfLoops(0);
         } 
+        console.log(results);
     }, []);
 
     //Function for Save button to insert new word/update existing word with user's notes
@@ -47,7 +54,7 @@ const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
                 {   
                     results 
                     ?   <> 
-                        { results.id
+                        { results.word
                             ?   <>
                                     <View style={styles.iconContainer}>
                                         <Icon name='times' color = {modalColor} size = {styles.iconContainer.fontSize} onPress = {() => 
@@ -55,9 +62,13 @@ const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
                                         <Icon name='volume-up' color = {modalColor} size = {styles.iconContainer.fontSize} onPress = {() => pronounce.play()}></Icon>
                                     </View>
                                     <View style={styles.loaded}>
-                                        <Text style={[styles.title, {color: modalColor}]}>{results.id}</Text>
+                                        <Text style={[styles.title, {color: modalColor}]}>{results.word}</Text>
                                         <Text style={[styles.subtitle, {color: modalColor}]}>Definition</Text>
-                                        <Text style={styles.text}>{results.def.map((def: string) => '- ' + def + '\n')}</Text>
+                                        <Text style={styles.text}>
+                                            { Array.isArray(results.definition)
+                                            ? results.definition.map((def: string) => '- ' + def + '\n')
+                                            : '- ' + results.definition }
+                                        </Text>
                                     </View>
                                     <Text style={[styles.subtitle, {color: modalColor}]}>Your Notes:</Text>
                                     <View style = {styles.inputContainer}>
@@ -65,7 +76,7 @@ const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
                                     </View>
                                     <View style={styles.iconContainer}>
                                         <Icon name = 'save' color = {modalColor} size = {styles.iconContainer.fontSize} solid onPress = {() => 
-                                            insertNewWord([results.id, results.def, results.audio, notesInput])}></Icon>
+                                            insertNewWord([results.word, defToString(results.definition), results.audio, notesInput])}></Icon>
                                     </View>
                                 </>
                             :   <>

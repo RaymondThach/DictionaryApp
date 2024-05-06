@@ -5,8 +5,9 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import NewWord from './NewWord';
 import WordModal from './WordModal';
-import {getDBConnection, createTable} from '../services/db';
+import {getDBConnection, createTable, getAllWords} from '../services/db';
 import SearchWord from './SearchWord';
+import LearningList from './LearningList';
 
 const Home = () => {
   //State variable for showing the modal for a word
@@ -17,12 +18,15 @@ const Home = () => {
   const [newWord, setNewWord] = useState(String);
   //State variable for the JSON from GetWordDef()
   const [results, setResults] = useState(JSON);
+  //State variable for getting a list of words from database for the Learning List 
+  const [allWords, setAllWords] = useState({});
 
   //Establish connection to database and create LearningWords table if it doesn't exist
   const connectDB = async () => {
     try {
       const db = await getDBConnection();
       await createTable(db);
+      await getAllWords(db).then((res: {}) => setAllWords(res))
     } catch (error) {
       console.log(error);
     }
@@ -50,8 +54,7 @@ const Home = () => {
                 <SearchWord setResults = {setResults} setShowingModal = {setShowingModal} setModalColor = {setModalColor}/>
               </View>
               <View style = {styles.revisionContainer}>
-              </View>
-              <View style = {styles.toolbarContainer}>
+                <LearningList allWords = {allWords} setResults = {setResults} setShowingModal ={setShowingModal} setModalColor = {setModalColor}/>
               </View>
             </View>
         </View>
@@ -80,7 +83,7 @@ const styles = StyleSheet.create({
     
   },
   titleContainer: {
-    flex: 1,
+    height: '8%',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#000000'
@@ -92,20 +95,15 @@ const styles = StyleSheet.create({
   },
   newWordContainer: {
     backgroundColor: '#000000',
-    height: '27%'
+    height: '21%'
   },
   searchContainer: {
-    height: '27%',
+    height: '21%',
     backgroundColor: '#000000'
-    //backgroundColor: '#3E92CC'
   },
   revisionContainer: {
-    height: '30%',
-    backgroundColor: '#0A2463'
-  },
-  toolbarContainer: {
     flex: 1,
-    backgroundColor: '#000000'
+    backgroundColor: 'pink'
   },
 });
 
