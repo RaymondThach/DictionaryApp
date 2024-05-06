@@ -102,3 +102,14 @@ export const deleteAll = async (db: SQLiteDatabase) => {
         throw Error('Unable to delete all words');
     }
 };
+
+//Delete a word (row) from the LearningWords table
+export const deleteWord = async (db: SQLiteDatabase, word: string) => { 
+    const delete_query = `DELETE FROM LearningWords WHERE word = '${word}'`;
+    try { 
+        await db.executeSql(delete_query);
+    } catch (error){
+        console.log(error);
+        throw Error('Unable to delete word');
+    }
+};

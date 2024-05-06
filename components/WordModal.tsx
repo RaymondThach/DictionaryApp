@@ -4,7 +4,7 @@ import {View, Text, StyleSheet, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import GetWordDef from '../utils/GetWordDef';
 import Sound from 'react-native-sound';
-import {insertWord, getDBConnection, getAllWords, deleteAll, createTable, getWord} from '../services/db';
+import {insertWord, getDBConnection} from '../services/db';
 
 const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
     //State for the text input for user notes for a word
