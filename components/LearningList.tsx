@@ -21,6 +21,7 @@ const LearningList = ({allWords, setShowingModal, setResults, setModalColor}: an
         setShowingModal(true);
     };
 
+    //Retrieve data each time a different word is selected from the list
     useEffect(()=> {
         if (selectedWord){
             getWordFromTable();

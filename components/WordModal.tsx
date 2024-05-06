@@ -20,10 +20,10 @@ const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
         });
     }
     
+    //Convert array to a formatted string to store in database
     const defToString = (arr: []) => {
         let string_definition = arr.join('\n- ')
         return string_definition;
-
     };
 
     //Set volume for audio file to 100% and loop to one on render

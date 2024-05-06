@@ -32,6 +32,7 @@ const Home = () => {
     }
   };
 
+  //Check database and retrieve list of saved words on startup
   useEffect(() => {
     connectDB();
   }, [])

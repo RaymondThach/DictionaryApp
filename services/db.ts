@@ -103,6 +103,7 @@ export const insertWord = async (db: SQLiteDatabase, params: string[]) => {
         WHERE word = '${params[0]}'
     `;
 
+    //If the word doesn't exist in the results insert the word into the table
     if (await Promise.resolve(results).then((result) => result[0].rows.length) == 0){
         try {
             await db.executeSql(insert_query, params);
