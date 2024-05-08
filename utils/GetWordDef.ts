@@ -2,12 +2,18 @@
 //Extract useful information from API response, if word isn't found return the suggestions.
 import {API_KEY} from '@env';
 
-const GetWordDef = async (searchWord: String) => {
+//Remove : and any numbers after it to get the word only from the API
+//Can't use passed in searchWord, because the API searches up plain words only with multiple variations of the same word
+//E.g. API returns "conserve:1"
+export const wordTrimmer = (str: String) => {
+    const newString = str.replace(/:[\d]+/,'');
+    return newString;
+}
+
+const GetWordDef = async (word: String) => {
     const key = process.env.API_KEY;
-    const word = searchWord;
 
     try {
-        //console.log(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${key}`);
         const response = await fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${key}`);
         const json = await response.json();
         if (json[0].meta){
@@ -24,13 +30,12 @@ const GetWordDef = async (searchWord: String) => {
                 subDirectory = audioName[0];
             }
             const audioLink = `https://media.merriam-webster.com/audio/prons/en/us/mp3/${subDirectory}/${audioName}.mp3`;
-            const result = {word: json[0].meta.id, definition: json[0].shortdef, audio: audioLink};
-            //console.log(result);
+            const trimmedWord = wordTrimmer(json[0].meta.id);
+            const result = {word: trimmedWord, definition: json[0].shortdef, audio: audioLink};
             return result;
         }
         else {
             const result = {suggestions: json};
-            //console.log(result);
             return result;
         }  
     } catch (e) {

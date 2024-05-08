@@ -1,26 +1,21 @@
-/** Jest tests for logic within utils file
+/** Jest tests for logic for any helper functions and within utils file
  * @format
  */
 
 import 'react-native';
-//import React from 'react';
-//import Home from '../components/home';
-import GetRandWord from '../utils/GetRandWord';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it, expect} from '@jest/globals';
-import GetWordDef from '../utils/GetWordDef';
-//import renderer from 'react-test-renderer';
 
 //import example mock JSON from the API
 import mockJSON from './gas.json';
 
+//Utils functions
+import GetRandWord from '../utils/GetRandWord';
+import GetWordDef, {wordTrimmer} from '../utils/GetWordDef';
+
 //mock data imitating the fetch to APIs
 let mockData = jest.fn();
-
-// it('renders correctly', () => {
-//   renderer.create(<Home />);
-// });
 
 //Clear the mock fetch data and global.fetch before each test
 beforeEach( () => {
@@ -55,13 +50,23 @@ it('handles exceptions with no words sent from API', async() => {
 });
 
 //GetWordDef() receive the first definition from the JSON response. Uses gas.json file for the word Gas.
-it('gets the first definition of a given word of the JSON file from the API', async () => {
+it('gets the definition of the first variation of the word, and audio link give a JSON file from the API', async () => {
   mockData = jest.fn(() => 
     Promise.resolve({
-      json: () => Promise.resolve(mockJSON[0])
+      json: () => Promise.resolve([mockJSON[0]])
     })
   ) as jest.Mock;
   global.fetch = mockData;
   const def = await GetWordDef('gas');
-  expect(def).toEqual(mockJSON[0]);
+  expect(def).toEqual({
+    word: 'gas', 
+    definition: ["a fluid (such as air) that has neither independent shape nor volume but tends to expand indefinitely", "a combustible gas or gaseous mixture for fuel or lighting; especially : natural gas", "a gaseous product of digestion; also : discomfort from this",], 
+    audio: 'https://media.merriam-webster.com/audio/prons/en/us/mp3/g/gas00001.mp3'});
+});
+
+//wordTrimmer() within GetWordDef.ts, ensure the function returns the string word correctly
+it('trims the word within the API response and returns it correctly formatted', async () => {
+  const test_word = 'conserve:1';
+  const trimmed_word = wordTrimmer(test_word);
+  expect(trimmed_word).toEqual('conserve');
 });
