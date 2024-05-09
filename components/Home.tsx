@@ -19,14 +19,14 @@ const Home = () => {
   //State variable for the JSON from GetWordDef()
   const [results, setResults] = useState(JSON);
   //State variable for getting a list of words from database for the Learning List 
-  const [allWords, setAllWords] = useState({});
+  const [allWords, setAllWords] = useState(Object);
 
   //Establish connection to database and create LearningWords table if it doesn't exist
   const connectDB = async () => {
     try {
       const db = await getDBConnection();
       await createTable(db);
-      await getAllWords(db).then((res: {}) => setAllWords(res))
+      await getAllWords(db).then((res: String[]) => setAllWords(res))
     } catch (error) {
       console.log(error);
     }

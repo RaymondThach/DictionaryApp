@@ -78,6 +78,7 @@ export const getAllWords = async (db: SQLiteDatabase) => {
                           entries.push(result.rows.item(index))
                 }
         });
+        console.log(entries);
         return entries;
     } catch (error) {
         console.log(error);

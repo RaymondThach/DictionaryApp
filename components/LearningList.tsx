@@ -2,7 +2,7 @@
 //displayed in the shared modal component
 
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {getDBConnection, getWord} from '../services/db';
 
@@ -11,6 +11,8 @@ const LearningList = ({allWords, setShowingModal, setResults, setModalColor}: an
 
     //State for selected word from Learning List
     const [selectedWord, setSelectedWord] = useState(String);
+    // const [learningWords, setLearningWords] = useState(Object);
+    
 
     //Retrieve the row containing the word from the database then open the modal
     const getWordFromTable = async () => {
@@ -21,24 +23,49 @@ const LearningList = ({allWords, setShowingModal, setResults, setModalColor}: an
         setShowingModal(true);
     };
 
+    // useEffect(() => {
+      
+    // }, [learningWords]);
+
+    // useEffect(() => {
+      
+    // }, [allWords]);
+
     //Retrieve data each time a different word is selected from the list
-    useEffect(()=> {
-        if (selectedWord){
-            getWordFromTable();
-        }
-    }, [selectedWord]);
+    // useEffect(()=> {
+    //     if (selectedWord){
+    //         getWordFromTable();
+    //     }
+    // }, [selectedWord]);
 
     return  <View>
-                <Text style = {[styles.subtitle, {color: '#FFFAFF'}]}>Learning List</Text>
-                {/* <View style = {styles.buttonContainer}>
-                    
-                    <Icon.Button name = {'search'} color = '#0A2463' borderRadius = {15} backgroundColor={'#1E1B18'}>
-                        
-                    </Icon.Button>  
-                </View> */}
-                
-                <FlatList style = {styles.listContainer} data = {allWords} renderItem={({item}) => 
-                    <Text style = {styles.word} onPress = {() => {setSelectedWord(item.word); setModalColor('#0A2463');}}>{item.word}</Text>}/>
+              <Text style = {[styles.subtitle, {color: '#FFFAFF'}]}>Learning List</Text>
+
+              { allWords.length > 0 
+              ? <ScrollView style={styles.listContainer}>
+              {
+              
+                allWords.map((item: {word: String}, i: number) => 
+                  <Text key = {i} style = {styles.word}>{item.word}</Text>
+                )
+              }
+              </ScrollView>
+              : null
+              
+              }
+              
+                {/* <FlatList style = {styles.listContainer} data = {allWords} renderItem={({item}) => 
+                      <Text style = {styles.listRow} onPress = {() => {setSelectedWord(item.word); setModalColor('#0A2463');}}>  
+                        <Text style = {styles.word}>
+                        <View style = {styles.delButton}>
+                            <Icon name={'trash'}/>
+                          </View>
+                          <View style={styles.test}></View>
+                          <Text>{item.word}</Text>
+                          
+                        </Text>
+                      </Text>
+                  }/> */}
             </View>
 };
 
@@ -72,12 +99,31 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderWidth: 5,
         borderRadius: 15,
-        borderColor: '#0A2463'
+        borderColor: '#0A2463',
     },
     word: {
-        padding: '1%',
-        fontSize: 20,
-        color: '#000000',
+      flex:1,
+      padding: '1%',
+      fontSize: 20,
+      color: '#000000',
+      backgroundColor: 'orange',
+    },
+    listRow: {
+      flex:1,
+      flexDirection: 'row-reverse',
+      justifyContent: 'space-between',
+      backgroundColor: 'red',
+    },
+    delButton: {
+      flex:1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      backgroundColor: 'blue',
+      paddingLeft: '80%'
+    },
+    test: {
+      flex: 1,
+      padding: '100%'
     }
   });
 
