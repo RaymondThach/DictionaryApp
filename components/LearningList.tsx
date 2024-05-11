@@ -11,32 +11,21 @@ const LearningList = ({allWords, setShowingModal, setResults, setModalColor}: an
 
     //State for selected word from Learning List
     const [selectedWord, setSelectedWord] = useState(String);
-    // const [learningWords, setLearningWords] = useState(Object);
     
-
     //Retrieve the row containing the word from the database then open the modal
     const getWordFromTable = async () => {
-        console.log(selectedWord);
-        const db = await getDBConnection();
-        const word = await getWord(db, selectedWord);
-        await setResults(word);
-        setShowingModal(true);
+      const db = await getDBConnection();
+      const word = await getWord(db, selectedWord);
+      setResults(word);
+      setShowingModal(true);
     };
 
-    // useEffect(() => {
-      
-    // }, [learningWords]);
-
-    // useEffect(() => {
-      
-    // }, [allWords]);
-
     //Retrieve data each time a different word is selected from the list
-    // useEffect(()=> {
-    //     if (selectedWord){
-    //         getWordFromTable();
-    //     }
-    // }, [selectedWord]);
+    useEffect(()=> {
+      if (selectedWord){
+          getWordFromTable();
+      };
+    }, [selectedWord]);
 
     return  <View>
               <Text style = {[styles.subtitle, {color: '#FFFAFF'}]}>Learning List</Text>
@@ -46,26 +35,15 @@ const LearningList = ({allWords, setShowingModal, setResults, setModalColor}: an
               {
               
                 allWords.map((item: {word: String}, i: number) => 
-                  <Text key = {i} style = {styles.word}>{item.word}</Text>
+                  <View key = {i} style = {styles.listRow}>
+                    <Text style = {styles.word} onPress = {() => {setSelectedWord(item.word.toString()); setModalColor('#0A2463');}}>{item.word}</Text>
+                    <Icon name = {'trash'} style = {styles.delButton}/>
+                  </View>
                 )
               }
               </ScrollView>
               : null
-              
               }
-              
-                {/* <FlatList style = {styles.listContainer} data = {allWords} renderItem={({item}) => 
-                      <Text style = {styles.listRow} onPress = {() => {setSelectedWord(item.word); setModalColor('#0A2463');}}>  
-                        <Text style = {styles.word}>
-                        <View style = {styles.delButton}>
-                            <Icon name={'trash'}/>
-                          </View>
-                          <View style={styles.test}></View>
-                          <Text>{item.word}</Text>
-                          
-                        </Text>
-                      </Text>
-                  }/> */}
             </View>
 };
 
@@ -102,29 +80,21 @@ const styles = StyleSheet.create({
         borderColor: '#0A2463',
     },
     word: {
-      flex:1,
-      padding: '1%',
       fontSize: 20,
       color: '#000000',
       backgroundColor: 'orange',
     },
     listRow: {
       flex:1,
-      flexDirection: 'row-reverse',
-      justifyContent: 'space-between',
-      backgroundColor: 'red',
-    },
-    delButton: {
-      flex:1,
       flexDirection: 'row',
       justifyContent: 'space-between',
-      backgroundColor: 'blue',
-      paddingLeft: '80%'
+      backgroundColor: 'red',
+      padding: '1%'
     },
-    test: {
-      flex: 1,
-      padding: '100%'
-    }
+    delButton: {
+      fontSize: 20,
+      color: '#0A2463'
+    },
   });
 
 export default LearningList; 

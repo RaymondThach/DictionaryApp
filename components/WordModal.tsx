@@ -11,7 +11,7 @@ const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
     const [notesInput, setNotesInput] = useState('')
 
     //Assign Sound resources to the audio link (resources to be cleared on modal close)
-    if (results.audio) {
+    if (results) {
         var pronounce = new Sound(results.audio, '', (error: any) => {
             if (error) {
                 console.log('failed to laod the sound', error);
@@ -32,7 +32,6 @@ const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
             pronounce.setVolume(1);
             pronounce.setNumberOfLoops(0);
         } 
-        console.log(results);
     }, []);
 
     //Function for Save button to insert new word/update existing word with user's notes
@@ -46,9 +45,9 @@ const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
     };
 
     //Re-render when a suggested word is selected
-    useEffect(() => {
-        //console.log(results);
-    }, [results]);
+    // useEffect(() => {
+    //     //console.log(results);
+    // }, [results]);
 
     return  <View style={[styles.container, {borderColor: modalColor}]}>  
                 {   
@@ -107,7 +106,13 @@ const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
                                 </>
                         }
                         </>
-                    :   <View style={styles.loading}><Text>Loading...</Text></View>
+                    :   
+                    <>
+                        <View style={styles.iconContainer}>
+                            <Icon name='times' color = {modalColor} size = {styles.iconContainer.fontSize} onPress = {() => 
+                                {setShowingModal(false); {pronounce? pronounce.release() : null}}}></Icon>
+                        </View>
+                        <View style={styles.loading}><Text>Loading...</Text></View></>
                 }   
             </View>
 };
