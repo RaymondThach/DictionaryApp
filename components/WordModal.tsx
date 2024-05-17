@@ -11,7 +11,7 @@ const WordModal = ({setShowingModal, modalColor, results, setResults, resetList}
     const [notesInput, setNotesInput] = useState(String)
 
     //Assign Sound resources to the audio link (resources to be cleared on modal close)
-    if (results.audio !== ''){
+    if (results.audio){
         var pronounce = new Sound(results.audio, '', (error: any) => {
             if (error) {
                 console.log('failed to load the sound', error);
@@ -73,8 +73,8 @@ const WordModal = ({setShowingModal, modalColor, results, setResults, resetList}
                                         {notesInput}</TextInput>
                                     </View>
                                     <View style={styles.iconContainer}>
-                                        <Icon name = 'save' color = {modalColor} size = {styles.iconContainer.fontSize} solid onPress = {() => 
-                                            {insertNewWord([results.word, defToString(results.definition), results.audio, notesInput]); resetList(); setShowingModal(false);}}></Icon>
+                                        <Icon name = 'save' color = {modalColor} size = {styles.iconContainer.fontSize} solid onPress = {async() => 
+                                            {await insertNewWord([results.word, defToString(results.definition), results.audio, notesInput]); resetList(); setShowingModal(false);}}></Icon>
                                     </View>
                                 </>
                             :   <>

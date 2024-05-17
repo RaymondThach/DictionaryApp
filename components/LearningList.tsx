@@ -8,7 +8,6 @@ import {getDBConnection, getWord, deleteWord} from '../services/db';
 
 
 const LearningList = ({allWords, setAllWords, setShowingModal, setResults, setModalColor, resetList}: any) => {
-
     //State for deleting a word from Learning List
     const [delWord, setDelWord] = useState(String);
     // //State for showing confirmation box
