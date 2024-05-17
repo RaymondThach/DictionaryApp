@@ -43,7 +43,12 @@ export const getPromWord = async (db: SQLiteDatabase, word: string) => {
 export const getWord = async (db: SQLiteDatabase, word: string) => {
     const results = await getPromWord(db, word)
     try {
-        return results[0].rows.item(0);
+        if (results[0].rows.length > 0) {
+            return results[0].rows.item(0);
+        }
+        else {
+            return 0;
+        }  
     } catch (error) {
         console.log(error);
     }
@@ -78,7 +83,6 @@ export const getAllWords = async (db: SQLiteDatabase) => {
                           entries.push(result.rows.item(index))
                 }
         });
-        console.log(entries);
         return entries;
     } catch (error) {
         console.log(error);
@@ -89,7 +93,7 @@ export const getAllWords = async (db: SQLiteDatabase) => {
 //Insert or update a word's notes into LearningWords table for modal
 export const insertWord = async (db: SQLiteDatabase, params: string[]) => {
     //See if the word already exists
-    const results = getWord(db, params[0]);
+    const results = getWord(db, params[0]); 
     const insert_query = `
         INSERT INTO LearningWords(
           word,
@@ -103,9 +107,8 @@ export const insertWord = async (db: SQLiteDatabase, params: string[]) => {
         SET notes = '${params[3]}'
         WHERE word = '${params[0]}'
     `;
-
     //If the word doesn't exist in the results insert the word into the table
-    if (await Promise.resolve(results).then((result) => result[0].rows.length) == 0){
+    if (await Promise.resolve(results).then((result) => result == 0)){
         try {
             await db.executeSql(insert_query, params);
         } catch (error) {

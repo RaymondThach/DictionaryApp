@@ -2,10 +2,10 @@
 //First view to render on application start
 
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Modal} from 'react-native';
 import NewWord from './NewWord';
 import WordModal from './WordModal';
-import {getDBConnection, createTable, getAllWords} from '../services/db';
+import {getDBConnection, createTable, getAllWords, getAll} from '../services/db';
 import SearchWord from './SearchWord';
 import LearningList from './LearningList';
 
@@ -26,7 +26,7 @@ const Home = () => {
     try {
       const db = await getDBConnection();
       await createTable(db);
-      await getAllWords(db).then((res: String[]) => setAllWords(res))
+      await getAllWords(db).then((res: string[]) => setAllWords(res));
     } catch (error) {
       console.log(error);
     }
@@ -36,11 +36,16 @@ const Home = () => {
   useEffect(() => {
     connectDB();
   }, [])
+  
+  const resetList = async () => {
+    const db = await getDBConnection();
+    await getAllWords(db).then((res: string[]) => setAllWords(res));
+  };
 
   return <View style = {styles.background}>
             { showingModal
                 ? <View style = {styles.modal}>
-                    <WordModal setShowingModal = {setShowingModal} modalColor = {modalColor} results = {results} setResults = {setResults}/>
+                    <WordModal setShowingModal = {setShowingModal} modalColor = {modalColor} results = {results} setResults = {setResults} resetList = {resetList}/>
                   </View>
                 : null
             }
@@ -55,7 +60,7 @@ const Home = () => {
                 <SearchWord setResults = {setResults} setShowingModal = {setShowingModal} setModalColor = {setModalColor}/>
               </View>
               <View style = {styles.revisionContainer}>
-                <LearningList allWords = {allWords} setResults = {setResults} setShowingModal ={setShowingModal} setModalColor = {setModalColor}/>
+                <LearningList allWords = {allWords} setResults = {setResults} setShowingModal ={setShowingModal} setModalColor = {setModalColor} setAllWords = {setAllWords} resetList= {resetList}/>
               </View>
             </View>
         </View>
@@ -104,8 +109,7 @@ const styles = StyleSheet.create({
   },
   revisionContainer: {
     flex: 1,
-    backgroundColor: 'pink'
-  },
+  }, 
 });
 
 export default Home;

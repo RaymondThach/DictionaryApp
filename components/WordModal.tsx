@@ -6,15 +6,15 @@ import GetWordDef from '../utils/GetWordDef';
 import Sound from 'react-native-sound';
 import {insertWord, getDBConnection} from '../services/db';
 
-const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
+const WordModal = ({setShowingModal, modalColor, results, setResults, resetList}: any) => {
     //State for the text input for user notes for a word
-    const [notesInput, setNotesInput] = useState('')
+    const [notesInput, setNotesInput] = useState(String)
 
     //Assign Sound resources to the audio link (resources to be cleared on modal close)
-    if (results) {
+    if (results.audio !== ''){
         var pronounce = new Sound(results.audio, '', (error: any) => {
             if (error) {
-                console.log('failed to laod the sound', error);
+                console.log('failed to load the sound', error);
                 return;
             }
         });
@@ -31,7 +31,10 @@ const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
         if (pronounce) {
             pronounce.setVolume(1);
             pronounce.setNumberOfLoops(0);
-        } 
+        }
+        if (results.notes) {
+            setNotesInput(results.notes);
+        }
     }, []);
 
     //Function for Save button to insert new word/update existing word with user's notes
@@ -44,11 +47,6 @@ const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
         }
     };
 
-    //Re-render when a suggested word is selected
-    // useEffect(() => {
-    //     //console.log(results);
-    // }, [results]);
-
     return  <View style={[styles.container, {borderColor: modalColor}]}>  
                 {   
                     results 
@@ -58,7 +56,7 @@ const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
                                     <View style={styles.iconContainer}>
                                         <Icon name='times' color = {modalColor} size = {styles.iconContainer.fontSize} onPress = {() => 
                                             {setShowingModal(false); {pronounce? pronounce.release() : null}}}></Icon>
-                                        <Icon name='volume-up' color = {modalColor} size = {styles.iconContainer.fontSize} onPress = {() => pronounce.play()}></Icon>
+                                        <Icon name='volume-up' color = {modalColor} size = {styles.iconContainer.fontSize} onPress = {() => {results.audio === ''? null : pronounce.play();}}></Icon>
                                     </View>
                                     <View style={styles.loaded}>
                                         <Text style={[styles.title, {color: modalColor}]}>{results.word}</Text>
@@ -71,11 +69,12 @@ const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
                                     </View>
                                     <Text style={[styles.subtitle, {color: modalColor}]}>Your Notes:</Text>
                                     <View style = {styles.inputContainer}>
-                                        <TextInput multiline= {true} style = {[styles.textInput, {borderColor: modalColor}]} onChangeText = {(input) => setNotesInput(input)}/>
+                                        <TextInput multiline= {true} style = {[styles.textInput, {borderColor: modalColor}]} onChangeText = {(input) => setNotesInput(input)}>
+                                        {notesInput}</TextInput>
                                     </View>
                                     <View style={styles.iconContainer}>
                                         <Icon name = 'save' color = {modalColor} size = {styles.iconContainer.fontSize} solid onPress = {() => 
-                                            insertNewWord([results.word, defToString(results.definition), results.audio, notesInput])}></Icon>
+                                            {insertNewWord([results.word, defToString(results.definition), results.audio, notesInput]); resetList(); setShowingModal(false);}}></Icon>
                                     </View>
                                 </>
                             :   <>
@@ -120,7 +119,7 @@ const WordModal = ({setShowingModal, modalColor, results, setResults}: any) => {
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        backgroundColor: 'white',
+        backgroundColor: '#FFFFFF',
         borderWidth: 5,
         borderRadius: 15,
     },
@@ -155,7 +154,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 15,
         fontFamily: 'roboto_bold', 
-        color: 'black',
+        color: '#000000',
     },
     suggestions: {
         fontSize: 15,
