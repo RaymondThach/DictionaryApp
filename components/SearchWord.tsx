@@ -10,13 +10,25 @@ const SearchWord = ({setShowingModal, setResults, setModalColor}: any) => {
   //State for search box's user input
   const [searchWord, setSearchWord] = useState('');
 
+  //Search for the input word and setup the modal
+  const search = async () => {
+    if(searchWord !== ''){
+      await GetWordDef(searchWord).then((res) => setResults(res)); 
+      setShowingModal(true); 
+      setModalColor('#3E92CC');
+    } 
+  }
+
   return  <View>
               <Text style = {[styles.subtitle, {color: '#3E92CC'}]}>Find Definition</Text>
-              <TextInput style = {styles.Search} placeholder='Enter a word' onChangeText={(text) => setSearchWord(text)}></TextInput>
+              <TextInput style = {styles.Search} placeholder='Enter a word' onChangeText={(text) => setSearchWord(text)} value={searchWord}></TextInput>
               <View style = {styles.buttonContainer}>
-                  <Icon.Button name = {'search'} color = '#3E92CC' borderRadius = {15} backgroundColor={'#1E1B18'}>
-                      <Text style = {styles.subtitle} onPress={async () => {await GetWordDef(searchWord).then((res) => setResults(res)); setShowingModal(true); setModalColor('#3E92CC');}}>Search</Text>
+                  <Icon.Button name = {'search'} color = '#3E92CC' borderRadius = {15} backgroundColor = {'#1E1B18'} onPress = {() => search()}>
+                      <Text style = {styles.subtitle}>Search</Text>
                   </Icon.Button>  
+                  <Icon.Button name = {'eraser'} color = '#3E92CC' borderRadius = {15} backgroundColor = {'#1E1B18'} onPress = {() => setSearchWord('')}>
+                    <Text style = {styles.subtitle}>Clear</Text>
+                  </Icon.Button>
               </View>
           </View>
 };
@@ -42,6 +54,7 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
       flexDirection: 'row-reverse',
+      justifyContent: 'space-between',
       paddingTop: '2%',
       paddingBottom: '2%'
     }
