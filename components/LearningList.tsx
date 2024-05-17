@@ -30,7 +30,9 @@ const LearningList = ({allWords, setAllWords, setShowingModal, setResults, setMo
     return  <View>
               <Text style = {styles.subtitle}>Learning List</Text>
               { allWords.length > 0 
-              ? <ScrollView style={styles.listContainer}>
+              ? 
+              <>
+              <ScrollView style={styles.listContainer}>
               {
                 allWords.map((item: {word: String}, i: number) => 
                   <View key = {i} style = {styles.listRow}>
@@ -39,8 +41,21 @@ const LearningList = ({allWords, setAllWords, setShowingModal, setResults, setMo
                   </View>
                 )
               }
-              
               </ScrollView>
+              <View style={styles.buttonContainer}>
+                <View style={styles.sortContainer}>
+                  <Icon name = {'sort-alpha-down'} style = {styles.sortButtons}>
+                  </Icon>
+                  <Icon name = {'sort-numeric-up'} style = {styles.sortButtons}>
+                  </Icon>
+                </View>
+                <View>
+                  <Icon.Button name = {'trash-alt'} borderRadius = {15} backgroundColor = {'#1E1B18'}>
+                    <Text style = {styles.subtitle}>Clear List</Text>
+                  </Icon.Button>
+                </View>
+              </View>
+              </>
               : <ScrollView style={styles.listContainer}>
                   <Text style={styles.message}>No words saved yet</Text>
                 </ScrollView>
@@ -90,13 +105,14 @@ const styles = StyleSheet.create({
       borderColor: '#3E92CC',
     },
     buttonContainer: {
-      flexDirection: 'row-reverse',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
       paddingTop: '2%',
       paddingBottom: '2%'
     },
     listContainer: {
         width: '100%',
-        height: '85%',
+        height: '80%',
         backgroundColor: 'white',
         borderWidth: 5,
         borderRadius: 15,
@@ -147,6 +163,15 @@ const styles = StyleSheet.create({
       paddingTop: '10%',
       width: '40%',
     },
+    sortButtons: {
+      color: '#FFFAFF',
+      fontSize: 25,
+      paddingRight: '5%',
+      paddingTop: '1%'
+    },
+    sortContainer: {
+      flexDirection: 'row',
+    }
   });
 
 export default LearningList; 

@@ -109,7 +109,6 @@ const styles = StyleSheet.create({
   },
   learningContainer: {
     flex: 1,
-    backgroundColor: 'pink'
   }, 
 });
 
