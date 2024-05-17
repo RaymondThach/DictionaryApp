@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import {getDBConnection, getWord, deleteWord} from '../services/db';
 
 
-const LearningList = ({allWords, setShowingModal, setResults, setModalColor, resetList}: any) => {
+const LearningList = ({allWords, setAllWords, setShowingModal, setResults, setModalColor, resetList}: any) => {
 
     //State for deleting a word from Learning List
     const [delWord, setDelWord] = useState(String);
@@ -22,6 +22,7 @@ const LearningList = ({allWords, setShowingModal, setResults, setModalColor, res
       setShowingModal(true);
     };
     
+    //Delete row (word) from table when "YES" button is selected in confirmation box
     const delFromTable = async (word: String) => {
       const db = await getDBConnection();
       await deleteWord(db, delWord);
@@ -41,7 +42,9 @@ const LearningList = ({allWords, setShowingModal, setResults, setModalColor, res
               }
               
               </ScrollView>
-              : null
+              : <ScrollView style={styles.listContainer}>
+                  <Text style={styles.message}>No words saved yet</Text>
+                </ScrollView>
               }
               <Modal transparent = {true} visible={confirmation}>
                 <View style = {styles.modalLayer}>

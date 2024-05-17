@@ -59,7 +59,7 @@ const Home = () => {
               <View style = {styles.searchContainer}>
                 <SearchWord setResults = {setResults} setShowingModal = {setShowingModal} setModalColor = {setModalColor}/>
               </View>
-              <View style = {styles.revisionContainer}>
+              <View style = {styles.learningContainer}>
                 <LearningList allWords = {allWords} setResults = {setResults} setShowingModal ={setShowingModal} setModalColor = {setModalColor} setAllWords = {setAllWords} resetList= {resetList}/>
               </View>
             </View>
@@ -107,8 +107,9 @@ const styles = StyleSheet.create({
     height: '21%',
     backgroundColor: '#000000'
   },
-  revisionContainer: {
+  learningContainer: {
     flex: 1,
+    backgroundColor: 'pink'
   }, 
 });
 
