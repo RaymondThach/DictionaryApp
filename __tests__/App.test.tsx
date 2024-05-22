@@ -13,6 +13,7 @@ import mockJSON from './gas.json';
 //Utils functions
 import GetRandWord from '../utils/GetRandWord';
 import GetWordDef, {wordTrimmer} from '../utils/GetWordDef';
+import SortAlphabetical from '../utils/SortAlphabetical';
 
 //mock data imitating the fetch to APIs
 let mockData = jest.fn();
@@ -69,4 +70,11 @@ it('trims the word within the API response and returns it correctly formatted', 
   const test_word = 'conserve:1';
   const trimmed_word = wordTrimmer(test_word);
   expect(trimmed_word).toEqual('conserve');
+});
+
+//SortAlphabetical() within SortAlphabetical.ts, ensure function returns results sorted alphabetically for the Learning List
+it('sorts the array, and returns the array alphabetically in descending order', () => {
+  const array = [{"word": "cartelize"}, {"word": "blue"}, {"word": "assessment"}];
+  SortAlphabetical(array, 'A-Z');
+  expect(array).toEqual([{ word: 'assessment' }, { word: 'blue' }, { word: 'cartelize' }]);
 });
