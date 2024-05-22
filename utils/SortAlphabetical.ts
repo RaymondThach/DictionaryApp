@@ -13,9 +13,6 @@ const SortAlphabetical = (arr: Array<{word: string}>, mode: string) => {
                     arr[j+1] = temp;
                     isSwapped = true;
                 }
-                if (isSwapped === false){
-                    break;
-                }
             }
             else { //Z-A
                 if (arr[j].word < arr[j+1].word){
@@ -24,9 +21,9 @@ const SortAlphabetical = (arr: Array<{word: string}>, mode: string) => {
                     arr[j+1] = temp;
                     isSwapped = true;
                 }
-                if (isSwapped === false){
-                    break;
-                }
+            }
+            if (isSwapped === false){
+                break;
             }
         }
     }
