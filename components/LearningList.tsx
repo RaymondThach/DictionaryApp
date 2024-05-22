@@ -10,8 +10,11 @@ import {getDBConnection, getWord, deleteWord} from '../services/db';
 const LearningList = ({allWords, setAllWords, setShowingModal, setResults, setModalColor, resetList}: any) => {
     //State for deleting a word from Learning List
     const [delWord, setDelWord] = useState(String);
-    // //State for showing confirmation box
+    //State for showing confirmation box
     const [confirmation, setConfirmation] = useState(Boolean);
+
+    //State for how the list is to be sorted alphabetically and the relative icon shown
+    const [sortAZ, setSortAZ] = useState(Boolean);
     
     //Retrieve the row containing the word from the database then open the modal
     const getWordFromTable = async (word: string) => {
@@ -44,10 +47,12 @@ const LearningList = ({allWords, setAllWords, setShowingModal, setResults, setMo
               </ScrollView>
               <View style={styles.buttonContainer}>
                 <View style={styles.sortContainer}>
-                  <Icon name = {'sort-alpha-down'} style = {styles.sortButtons}>
-                  </Icon>
-                  <Icon name = {'sort-numeric-up'} style = {styles.sortButtons}>
-                  </Icon>
+                  {
+                    sortAZ 
+                    ? <Icon name = {'sort-alpha-up'} style = {styles.sortButtons} onPress = {() => setSortAZ(!sortAZ)}/>
+                    : <Icon name = {'sort-alpha-down'} style = {styles.sortButtons} onPress ={() => setSortAZ(!sortAZ)}/>
+                  }
+                  <Icon name = {'sort-numeric-up'} style = {styles.sortButtons}/>
                 </View>
                 <View>
                   <Icon.Button name = {'trash-alt'} borderRadius = {15} backgroundColor = {'#1E1B18'}>
