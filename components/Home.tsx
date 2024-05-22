@@ -37,6 +37,7 @@ const Home = () => {
     connectDB();
   }, [])
   
+  //Fetch the updated list when words are added or deleted
   const resetList = async () => {
     const db = await getDBConnection();
     await getAllWords(db).then((res: string[]) => setAllWords(res));

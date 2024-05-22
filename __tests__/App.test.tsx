@@ -73,7 +73,7 @@ it('trims the word within the API response and returns it correctly formatted', 
 });
 
 //SortAlphabetical() within SortAlphabetical.ts, ensure function returns results sorted alphabetically for the Learning List
-it('sorts the array, and returns the array alphabetically in descending order', () => {
+it('sorts the array, and returns the array alphabetically in A to Z order', () => {
   const array = [{"word": "cartelize"}, {"word": "blue"}, {"word": "assessment"}];
   SortAlphabetical(array, 'A-Z');
   expect(array).toEqual([{ word: 'assessment' }, { word: 'blue' }, { word: 'cartelize' }]);

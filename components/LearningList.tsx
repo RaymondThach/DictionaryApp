@@ -5,6 +5,7 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, ScrollView, Modal, Button} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {getDBConnection, getWord, deleteWord} from '../services/db';
+import SortAlphabetical from '../utils/SortAlphabetical';
 
 
 const LearningList = ({allWords, setAllWords, setShowingModal, setResults, setModalColor, resetList}: any) => {
@@ -49,8 +50,8 @@ const LearningList = ({allWords, setAllWords, setShowingModal, setResults, setMo
                 <View style={styles.sortContainer}>
                   {
                     sortAZ 
-                    ? <Icon name = {'sort-alpha-up'} style = {styles.sortButtons} onPress = {() => setSortAZ(!sortAZ)}/>
-                    : <Icon name = {'sort-alpha-down'} style = {styles.sortButtons} onPress ={() => setSortAZ(!sortAZ)}/>
+                    ? <Icon name = {'sort-alpha-up'} style = {styles.sortButtons} onPress = {() => {setSortAZ(!sortAZ); SortAlphabetical(allWords, 'Z-A');}}/>
+                    : <Icon name = {'sort-alpha-down'} style = {styles.sortButtons} onPress ={() => {setSortAZ(!sortAZ); SortAlphabetical(allWords, 'A-Z');}}/>
                   }
                   <Icon name = {'sort-numeric-up'} style = {styles.sortButtons}/>
                 </View>
