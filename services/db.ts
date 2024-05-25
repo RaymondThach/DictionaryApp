@@ -1,3 +1,5 @@
+//Functions for managing the SQLite database, mainly for the Learning List
+
 import {enablePromise, openDatabase, SQLiteDatabase} from 'react-native-sqlite-storage';
 
 //Enable promises for SQLite, because app uses promise based API calls

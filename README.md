@@ -1,79 +1,69 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Dictionary App
+## The App and the Problem Space
+This React Native mobile application is designed to alleviate the pesronal problem space of learning new English words conveniently, without needing to access dictionaries or reading books. It provides random new words fetched from a free API, and defined via another with audio pronounciation. These words can be saved to a list for the user to revise, and add notes. The list is sortable alphabetically and by recency. Building this application served as an introduction to React Native and TypeScript.
 
-# Getting Started
+## Resources
+TypeScript
+JavaScript
+React Native
+SQLite
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+APIs -
+Random Word: https://random-word-api.herokuapp.com/home
+Word Definition (requires API Key): https://www.dictionaryapi.com/products/api-collegiate-dictionary
 
-## Step 1: Start the Metro Server
+## Setup
+Step 1 - 
+Setup the development environment following https://reactnative.dev/docs/environment-setup.
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+Step 2 - 
+Clone this respository
 
-To start Metro, run the following command from the _root_ of your React Native project:
+Step 3 - 
+Run your preferred virtual android (Android Studio was used in development) and IDE.
 
+Step 4 -
+Create a .env file at the root of the repository with:
 ```bash
-# using npm
+# Dictionary API key
+API_KEY = {your_API_KEY}
+```
+
+Step 5 -
+Run the application using the below and follow the CLI instructions:
+```bash
+# Use NPM start
 npm start
-
-# OR using Yarn
-yarn start
 ```
 
-## Step 2: Start your Application
+## Installation on Mobile
+Step 1 - 
+Setup your android phone for debugging and development following https://reactnative.dev/docs/running-on-device.
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
-
+Step 2 - 
+Run the below to start development on your android phone with USB plugin
 ```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
+# Use NPM start
+npm start
 ```
 
-### For iOS
+Step 3 (optional) - 
+Find the APK following the folder path:
+android/app/build/outputs/apk/app-release.apk
+Step 3.1 - 
+Transfer to the android phone and install.
 
-```bash
-# using npm
-npm run ios
+## Designs
+https://drive.google.com/drive/folders/1yPdNyy9xPDmtOp5PWxyekbbKMO_5QT9S?usp=sharing
 
-# OR using Yarn
-yarn ios
-```
+## Backlog
+https://docs.google.com/spreadsheets/d/1wNzjEzdkwj1D6NVb_rMD0t9CmaWNXIe85cNZZiL9-68/edit?usp=sharing
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## Future
+Features: 
+- System notifications to have word reminders like flash cards
+- Account for words with more than one definition (can implement pagination)
+Design: 
+- Consider storing API keys on a backend instead
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
