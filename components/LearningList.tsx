@@ -5,7 +5,7 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, ScrollView, Modal, Button} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {getDBConnection, getWord, deleteWord} from '../services/db';
-import SortAlphabetical from '../utils/SortAlphabetical';
+import SortBy from '../utils/SortBy';
 
 
 const LearningList = ({allWords, setAllWords, setShowingModal, setResults, setModalColor, resetList}: any) => {
@@ -16,6 +16,8 @@ const LearningList = ({allWords, setAllWords, setShowingModal, setResults, setMo
 
     //State for how the list is to be sorted alphabetically and the relative icon shown, it renders sort A to Z by default hence True initially.
     const [sortAZ, setSortAZ] = useState(true);
+    //State sorting the list numerically and the relative icon shown
+    const [sortNum, setSortNum] = useState(Boolean);
     
     //Retrieve the row containing the word from the database then open the modal
     const getWordFromTable = async (word: string) => {
@@ -50,10 +52,15 @@ const LearningList = ({allWords, setAllWords, setShowingModal, setResults, setMo
                 <View style={styles.sortContainer}>
                   {
                     sortAZ 
-                    ? <Icon name = {'sort-alpha-up'} style = {styles.sortButtons} onPress = {() => {setSortAZ(!sortAZ); SortAlphabetical(allWords, 'Z-A', 'word');}}/>
-                    : <Icon name = {'sort-alpha-down'} style = {styles.sortButtons} onPress ={() => {setSortAZ(!sortAZ); SortAlphabetical(allWords, 'A-Z', 'word');}}/>
+                    ? <Icon name = {'sort-alpha-up'} style = {styles.sortButtons} onPress = {() => {setSortAZ(!sortAZ); SortBy(allWords, 'Z-A', 'word');}}/>
+                    : <Icon name = {'sort-alpha-down'} style = {styles.sortButtons} onPress ={() => {setSortAZ(!sortAZ); SortBy(allWords, 'A-Z', 'word');}}/>
                   }
-                  <Icon name = {'sort-numeric-up'} style = {styles.sortButtons}/>
+                  {
+                    sortNum
+                    ? <Icon name = {'sort-numeric-up'} style = {styles.sortButtons} onPress = {() => {setSortNum(!sortNum);}}/>
+                    : <Icon name = {'sort-numeric-down'} style = {styles.sortButtons} onPress = {() => {setSortNum(!sortNum);}}/>
+                  }
+                  
                 </View>
                 <View>
                   <Icon.Button name = {'trash-alt'} borderRadius = {15} backgroundColor = {'#1E1B18'}>

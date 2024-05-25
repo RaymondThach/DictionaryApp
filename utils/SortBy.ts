@@ -1,6 +1,6 @@
 //Used bubble sort to sort Learning List by alphabetical order, both A-Z and Z-A order
 //isSwapped to prevent full iteration of the array when elements already sorted
-const SortAlphabetical = (arr: Array<{id: number, word: string}>, mode: string, field: keyof {id: number, word: string}) => {
+const SortBy = (arr: Array<{id: number, word: string}>, mode: string, field: keyof {id: number, word: string}) => {
     const len = arr.length;
     for (let i = 0; i < len; i++){
         let isSwapped = false;
@@ -30,4 +30,4 @@ const SortAlphabetical = (arr: Array<{id: number, word: string}>, mode: string, 
     return arr;
 };
 
-export default SortAlphabetical;
+export default SortBy;
