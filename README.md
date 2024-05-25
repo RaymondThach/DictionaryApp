@@ -60,10 +60,9 @@ https://drive.google.com/drive/folders/1yPdNyy9xPDmtOp5PWxyekbbKMO_5QT9S?usp=sha
 https://docs.google.com/spreadsheets/d/1wNzjEzdkwj1D6NVb_rMD0t9CmaWNXIe85cNZZiL9-68/edit?usp=sharing
 
 ## Future
-Features: 
+Features/Designs: 
 - System notifications to have word reminders like flash cards
 - Account for words with more than one definition (can implement pagination)
-Design: 
 - Consider storing API keys on a backend instead
 
 
