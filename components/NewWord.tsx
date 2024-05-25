@@ -1,6 +1,6 @@
 //View and stylesheet for New Word component rendered on Home view
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import GetRandWord from '../utils/GetRandWord';
 import Icon from 'react-native-vector-icons/FontAwesome5';

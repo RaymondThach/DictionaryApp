@@ -1,23 +1,24 @@
 //List component containing all words saved by user, each word can be clicked on and accesses database for the saved data to be
 //displayed in the shared modal component
 
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, ScrollView, Modal, Button} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {getDBConnection, getWord, deleteWord} from '../services/db';
+import {getDBConnection, getWord, deleteWord, deleteAll} from '../services/db';
 import SortBy from '../utils/SortBy';
 
 
-const LearningList = ({allWords, setAllWords, setShowingModal, setResults, setModalColor, resetList}: any) => {
+const LearningList = ({allWords, setShowingModal, setResults, setModalColor, resetList}: any) => {
     //State for deleting a word from Learning List
     const [delWord, setDelWord] = useState(String);
     //State for showing confirmation box
     const [confirmation, setConfirmation] = useState(Boolean);
-
     //State for how the list is to be sorted alphabetically and the relative icon shown, it renders sort A to Z by default hence True initially.
     const [sortAZ, setSortAZ] = useState(true);
     //State sorting the list numerically and the relative icon shown
     const [sortNum, setSortNum] = useState(Boolean);
+    //State for confirmation box to distinguish between deleting a word and whole list
+    const [delList, setDelList] = useState(Boolean);
     
     //Retrieve the row containing the word from the database then open the modal
     const getWordFromTable = async (word: string) => {
@@ -27,10 +28,21 @@ const LearningList = ({allWords, setAllWords, setShowingModal, setResults, setMo
       setShowingModal(true);
     };
     
-    //Delete row (word) from table when "YES" button is selected in confirmation box
+    //Delete row (word) from table when "YES" button is selected in confirmation box, refresh the list and close the confirmation box
     const delFromTable = async (word: String) => {
       const db = await getDBConnection();
       await deleteWord(db, delWord);
+      resetList();
+      setConfirmation(false);
+    };
+
+    //Delete all words from the table, refresh list, reset delList and close confirmation box
+    const deleteAllFromTable = async () => {
+      const db = await getDBConnection(); 
+      await deleteAll(db);
+      resetList();
+      setDelList(false);
+      setConfirmation(false);
     };
 
     return  <View>
@@ -63,7 +75,7 @@ const LearningList = ({allWords, setAllWords, setShowingModal, setResults, setMo
                   
                 </View>
                 <View>
-                  <Icon.Button name = {'trash-alt'} borderRadius = {15} backgroundColor = {'#1E1B18'}>
+                  <Icon.Button name = {'trash-alt'} borderRadius = {15} backgroundColor = {'#1E1B18'} onPress = {() => {setDelList(true); setConfirmation(true);}}>
                     <Text style = {styles.subtitle}>Clear List</Text>
                   </Icon.Button>
                 </View>
@@ -77,13 +89,17 @@ const LearningList = ({allWords, setAllWords, setShowingModal, setResults, setMo
                 <View style = {styles.modalLayer}>
                   <View style = {styles.confirmationBox}>
                     <View style = {styles.closeContainer}>
-                      <Icon name='times' color = {'#0A2463'} size = {20} onPress = {() => setConfirmation(false)}></Icon>
+                      <Icon name='times' color = {'#0A2463'} size = {20} onPress = {() => {setConfirmation(false); setDelList(false);}}></Icon>
                     </View>
                     <View style={styles.contentContainer}>
-                      <Text style = {styles.message}>Remove the word "{delWord}" from Learning List?</Text>
+                      {
+                        delList
+                        ? <Text style = {styles.message}>Clear the Learning List?</Text>
+                        : <Text style = {styles.message}>Remove the word "{delWord}" from Learning List?</Text>
+                      }
                       <View style = {styles.iconContainer}>
-                        <Button color = {'#0A2463'} title = 'No' onPress = {() => setConfirmation(false)}/>
-                        <Button color = {'#0A2463'} title ='Yes' onPress = {async () => {await delFromTable(delWord); resetList(); setConfirmation(false);}}/>
+                        <Button color = {'#0A2463'} title = 'No' onPress = {() => {setConfirmation(false); setDelList(false);}}/>
+                        <Button color = {'#0A2463'} title ='Yes' onPress = {async () => {delList? await deleteAllFromTable() : await delFromTable(delWord);}}/>
                       </View>
                     </View>
                   </View>

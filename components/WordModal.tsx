@@ -1,5 +1,5 @@
 //Modal (popup window) containing the details of a word. Used for New Word, Search, Save and Revision List components.
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import GetWordDef from '../utils/GetWordDef';
@@ -10,6 +10,7 @@ const WordModal = ({setShowingModal, modalColor, results, setResults, resetList}
     //State for the text input for user notes for a word
     const [notesInput, setNotesInput] = useState(String)
 
+    const modalCol = modalColor; 
     //Assign Sound resources to the audio link (resources to be cleared on modal close)
     if (results.audio){
         var pronounce = new Sound(results.audio, '', (error: any) => {
@@ -20,11 +21,13 @@ const WordModal = ({setShowingModal, modalColor, results, setResults, resetList}
         });
     }
     
+
+    //TODO: Revisit this to format the definition for storage and represented directly from the learning list when saved.
     //Convert array to a formatted string to store in database
-    const defToString = (arr: []) => {
-        let string_definition = arr.join('\n- ')
-        return string_definition;
-    };
+    // const defToString = (arr: []) => {
+    //     let string_definition = arr.join('\n- ')
+    //     return string_definition;
+    // };
 
     //Set volume for audio file to 100% and loop to one on render
     useEffect(()=> {
@@ -74,7 +77,7 @@ const WordModal = ({setShowingModal, modalColor, results, setResults, resetList}
                                     </View>
                                     <View style={styles.iconContainer}>
                                         <Icon name = 'save' color = {modalColor} size = {styles.iconContainer.fontSize} solid onPress = {async() => 
-                                            {await insertNewWord([results.word, defToString(results.definition), results.audio, notesInput]); resetList(); setShowingModal(false);}}></Icon>
+                                            {await insertNewWord([results.word, results.definition.toString(), results.audio, notesInput]); resetList(); setShowingModal(false);}}></Icon>
                                     </View>
                                 </>
                             :   <>
