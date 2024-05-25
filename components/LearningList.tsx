@@ -57,8 +57,8 @@ const LearningList = ({allWords, setAllWords, setShowingModal, setResults, setMo
                   }
                   {
                     sortNum
-                    ? <Icon name = {'sort-numeric-up'} style = {styles.sortButtons} onPress = {() => {setSortNum(!sortNum);}}/>
-                    : <Icon name = {'sort-numeric-down'} style = {styles.sortButtons} onPress = {() => {setSortNum(!sortNum);}}/>
+                    ? <Icon name = {'sort-numeric-up'} style = {styles.sortButtons} onPress = {() => {setSortNum(!sortNum); SortBy(allWords, '9-1', 'id');}}/>
+                    : <Icon name = {'sort-numeric-down'} style = {styles.sortButtons} onPress = {() => {setSortNum(!sortNum); SortBy(allWords, '1-9', 'id');}}/>
                   }
                   
                 </View>
