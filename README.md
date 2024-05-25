@@ -46,12 +46,9 @@ Run the below to start development on your android phone with USB plugin
 # Use NPM start
 npm start
 ```
-
-Step 3 (optional) - 
-Find the APK following the folder path:
-android/app/build/outputs/apk/app-release.apk
-Step 3.1 - 
-Transfer to the android phone and install.
+### APK (optional)
+Follow this guide to generate an APK to install on android mobile
+https://instamobile.io/android-development/generate-react-native-release-build-android/ 
 
 ## Designs
 https://drive.google.com/drive/folders/1yPdNyy9xPDmtOp5PWxyekbbKMO_5QT9S?usp=sharing
