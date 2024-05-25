@@ -2,10 +2,10 @@
 //First view to render on application start
 
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View, Modal} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import NewWord from './NewWord';
 import WordModal from './WordModal';
-import {getDBConnection, createTable, getAllWords, getAll} from '../services/db';
+import {getDBConnection, createTable, getAllWords} from '../services/db';
 import SearchWord from './SearchWord';
 import LearningList from './LearningList';
 

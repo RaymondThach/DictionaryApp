@@ -5,7 +5,7 @@ enablePromise(true);
 
 //Establish a connection to the database to save returned values from queries
 export const getDBConnection = async () => {
-    return openDatabase({name: 'dictionaryApp.db', location: 'default'})
+    return openDatabase({name: 'dictionaryApp.db'})
 };
 
 //Create the LearningWords table, primary key and word columns can be used for sorting
@@ -18,7 +18,6 @@ export const createTable = async (db: SQLiteDatabase) => {
         audio TEXT,
         notes TEXT
     )`;
-
     try {
         await db.executeSql(create_table_query);
     } catch (error) {

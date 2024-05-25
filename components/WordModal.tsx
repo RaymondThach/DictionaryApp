@@ -50,14 +50,14 @@ const WordModal = ({setShowingModal, modalColor, results, setResults, resetList,
     //Function for Save button to insert new word/update existing word with user's notes, refresh list and close modal
     const insertNewWord = async (entries: string[]) => {
         try {
-          const db = await getDBConnection();
-          await insertWord(db, entries);
-          resetList(); 
-          setShowingModal(false);
-          //Reset state if modal opened from the Learning List
-          if(onLearningList){
-            setOnLearningList(false);
-          }
+            const db = await getDBConnection();
+            await insertWord(db, entries);
+            resetList(); 
+            setShowingModal(false);
+            //Reset state if modal opened from the Learning List
+            if(onLearningList){
+                setOnLearningList(false);
+            }
         } catch (error) {
           console.log(error);
         }
@@ -190,7 +190,8 @@ const styles = StyleSheet.create({
         borderWidth: 5,
         borderRadius: 15,
         textAlignVertical: 'top',
-        padding: '2%'
+        padding: '2%',
+        color: '#000000'
     }
 });
 
