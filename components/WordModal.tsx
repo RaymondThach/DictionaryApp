@@ -6,11 +6,10 @@ import GetWordDef from '../utils/GetWordDef';
 import Sound from 'react-native-sound';
 import {insertWord, getDBConnection} from '../services/db';
 
-const WordModal = ({setShowingModal, modalColor, results, setResults, resetList}: any) => {
+const WordModal = ({setShowingModal, modalColor, results, setResults, resetList, onLearningList, setOnLearningList}: any) => {
     //State for the text input for user notes for a word
     const [notesInput, setNotesInput] = useState(String)
 
-    const modalCol = modalColor; 
     //Assign Sound resources to the audio link (resources to be cleared on modal close)
     if (results.audio){
         var pronounce = new Sound(results.audio, '', (error: any) => {
@@ -21,13 +20,21 @@ const WordModal = ({setShowingModal, modalColor, results, setResults, resetList}
         });
     }
     
-
-    //TODO: Revisit this to format the definition for storage and represented directly from the learning list when saved.
     //Convert array to a formatted string to store in database
-    // const defToString = (arr: []) => {
-    //     let string_definition = arr.join('\n- ')
-    //     return string_definition;
-    // };
+    const defToString = (arr: []) => {
+        let string_definition = arr.join('\n- ');
+        return string_definition;
+    };
+
+    //If modal was opened from learning list don't reformat the string definition, because it's saved as a string in database and not an array
+    const defChecker = () => {
+        if (onLearningList){
+            return results.definition;
+        }
+        else {
+            return defToString(results.definition);
+        }
+    };
 
     //Set volume for audio file to 100% and loop to one on render
     useEffect(()=> {
@@ -40,11 +47,17 @@ const WordModal = ({setShowingModal, modalColor, results, setResults, resetList}
         }
     }, []);
 
-    //Function for Save button to insert new word/update existing word with user's notes
+    //Function for Save button to insert new word/update existing word with user's notes, refresh list and close modal
     const insertNewWord = async (entries: string[]) => {
         try {
           const db = await getDBConnection();
           await insertWord(db, entries);
+          resetList(); 
+          setShowingModal(false);
+          //Reset state if modal opened from the Learning List
+          if(onLearningList){
+            setOnLearningList(false);
+          }
         } catch (error) {
           console.log(error);
         }
@@ -58,7 +71,7 @@ const WordModal = ({setShowingModal, modalColor, results, setResults, resetList}
                             ?   <>
                                     <View style={styles.iconContainer}>
                                         <Icon name='times' color = {modalColor} size = {styles.iconContainer.fontSize} onPress = {() => 
-                                            {setShowingModal(false); {pronounce? pronounce.release() : null}}}></Icon>
+                                            {setShowingModal(false); setOnLearningList(false); {pronounce? pronounce.release() : null}}}></Icon>
                                         <Icon name='volume-up' color = {modalColor} size = {styles.iconContainer.fontSize} onPress = {() => {results.audio === ''? null : pronounce.play();}}></Icon>
                                     </View>
                                     <View style={styles.loaded}>
@@ -77,7 +90,7 @@ const WordModal = ({setShowingModal, modalColor, results, setResults, resetList}
                                     </View>
                                     <View style={styles.iconContainer}>
                                         <Icon name = 'save' color = {modalColor} size = {styles.iconContainer.fontSize} solid onPress = {async() => 
-                                            {await insertNewWord([results.word, results.definition.toString(), results.audio, notesInput]); resetList(); setShowingModal(false);}}></Icon>
+                                            {await insertNewWord([results.word, defChecker(), results.audio, notesInput]);}}></Icon>
                                     </View>
                                 </>
                             :   <>
@@ -86,7 +99,7 @@ const WordModal = ({setShowingModal, modalColor, results, setResults, resetList}
                                         <>
                                             <View style={styles.iconContainer}>
                                                 <Icon name='times' color = {modalColor} size = {styles.iconContainer.fontSize} onPress = {() => 
-                                                    {setShowingModal(false); {pronounce? pronounce.release() : null}}}></Icon>
+                                                    {setShowingModal(false); setOnLearningList(false); {pronounce? pronounce.release() : null}}}></Icon>
                                             </View>
                                             <View style={styles.loaded}>
                                                 <Text style={[styles.title, {color: modalColor}]}>Did you mean:</Text>
@@ -98,7 +111,7 @@ const WordModal = ({setShowingModal, modalColor, results, setResults, resetList}
                                     :   <>
                                             <View style={styles.iconContainer}>
                                                 <Icon name='times' color = {modalColor} size = {styles.iconContainer.fontSize} onPress = {() => 
-                                                    {setShowingModal(false); {pronounce? pronounce.release() : null}}}></Icon>
+                                                    {setShowingModal(false); setOnLearningList(false); {pronounce? pronounce.release() : null}}}></Icon>
                                             </View>
                                             <View style={styles.loaded}>
                                                 <Text style={[styles.title, {color: modalColor}]}>{results.error}</Text>

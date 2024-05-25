@@ -20,6 +20,8 @@ const Home = () => {
   const [results, setResults] = useState(JSON);
   //State variable for getting a list of words from database for the Learning List 
   const [allWords, setAllWords] = useState(Object);
+  //State for checking if modal is opened from the learning list, if so don't reformat the stored definition (only reformatted on a new word).
+  const [onLearningList, setOnLearningList] = useState(false); 
 
   //Establish connection to database and create LearningWords table if it doesn't exist
   const connectDB = async () => {
@@ -46,7 +48,7 @@ const Home = () => {
   return <View style = {styles.background}>
             { showingModal
                 ? <View style = {styles.modal}>
-                    <WordModal setShowingModal = {setShowingModal} modalColor = {modalColor} results = {results} setResults = {setResults} resetList = {resetList}/>
+                    <WordModal setShowingModal = {setShowingModal} modalColor = {modalColor} results = {results} setResults = {setResults} resetList = {resetList} onLearningList = {onLearningList} setOnLearningList = {setOnLearningList}/>
                   </View>
                 : null
             }
@@ -61,7 +63,7 @@ const Home = () => {
                 <SearchWord setResults = {setResults} setShowingModal = {setShowingModal} setModalColor = {setModalColor}/>
               </View>
               <View style = {styles.learningContainer}>
-                <LearningList allWords = {allWords} setResults = {setResults} setShowingModal ={setShowingModal} setModalColor = {setModalColor} setAllWords = {setAllWords} resetList= {resetList}/>
+                <LearningList allWords = {allWords} setResults = {setResults} setShowingModal ={setShowingModal} setModalColor = {setModalColor} setAllWords = {setAllWords} resetList= {resetList} setOnLearningList= {setOnLearningList}/>
               </View>
             </View>
         </View>

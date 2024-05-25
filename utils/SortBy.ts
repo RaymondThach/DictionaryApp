@@ -26,7 +26,6 @@ const SortBy = (arr: Array<{id: number, word: string}>, mode: string, field: key
             break;
         }
     }
-    console.log(arr);
     return arr;
 };
 

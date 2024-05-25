@@ -8,7 +8,7 @@ import {getDBConnection, getWord, deleteWord, deleteAll} from '../services/db';
 import SortBy from '../utils/SortBy';
 
 
-const LearningList = ({allWords, setShowingModal, setResults, setModalColor, resetList}: any) => {
+const LearningList = ({allWords, setShowingModal, setResults, setModalColor, resetList, setOnLearningList}: any) => {
     //State for deleting a word from Learning List
     const [delWord, setDelWord] = useState(String);
     //State for showing confirmation box
@@ -19,6 +19,7 @@ const LearningList = ({allWords, setShowingModal, setResults, setModalColor, res
     const [sortNum, setSortNum] = useState(Boolean);
     //State for confirmation box to distinguish between deleting a word and whole list
     const [delList, setDelList] = useState(Boolean);
+    
     
     //Retrieve the row containing the word from the database then open the modal
     const getWordFromTable = async (word: string) => {
@@ -54,7 +55,7 @@ const LearningList = ({allWords, setShowingModal, setResults, setModalColor, res
               {
                 allWords.map((item: {word: String}, i: number) => 
                   <View key = {i} style = {styles.listRow}>
-                    <Text style = {styles.word} onPress = {() => {getWordFromTable(item.word.toString()); setModalColor('#0A2463');}}>{item.word}</Text>
+                    <Text style = {styles.word} onPress = {() => {getWordFromTable(item.word.toString()); setModalColor('#0A2463'); setOnLearningList(true);}}>{item.word}</Text>
                     <Icon name = {'trash'} style = {styles.delButton} onPress = {() => {setDelWord(item.word.toString()); setConfirmation(true);}}/>
                   </View>
                 )
