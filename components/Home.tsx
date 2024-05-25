@@ -19,7 +19,7 @@ const Home = () => {
   //State variable for the JSON from GetWordDef()
   const [results, setResults] = useState(JSON);
   //State variable for getting a list of words from database for the Learning List 
-  const [allWords, setAllWords] = useState(Object);
+  const [allWords, setAllWords] = useState(Array);
   //State for checking if modal is opened from the learning list, if so don't reformat the stored definition (only reformatted on a new word).
   const [onLearningList, setOnLearningList] = useState(false); 
 

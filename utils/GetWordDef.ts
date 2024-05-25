@@ -4,9 +4,10 @@ import {API_KEY} from '@env';
 
 //Remove : and any numbers/letters after it to get the word only from the API
 //Can't use passed in searchWord, because the API searches up plain words only with multiple variations of the same word
+//Convert to lower case to be sorted alphabetically
 //E.g. API returns "conserve:1" or "Prague:g"
 export const wordTrimmer = (str: string) => {
-    const newString = str.replace(/:.+/,'');
+    const newString = str.replace(/:.+/,'').toLowerCase();
     return newString;
 }
 
