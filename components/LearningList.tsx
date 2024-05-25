@@ -14,8 +14,8 @@ const LearningList = ({allWords, setAllWords, setShowingModal, setResults, setMo
     //State for showing confirmation box
     const [confirmation, setConfirmation] = useState(Boolean);
 
-    //State for how the list is to be sorted alphabetically and the relative icon shown
-    const [sortAZ, setSortAZ] = useState(Boolean);
+    //State for how the list is to be sorted alphabetically and the relative icon shown, it renders sort A to Z by default hence True initially.
+    const [sortAZ, setSortAZ] = useState(true);
     
     //Retrieve the row containing the word from the database then open the modal
     const getWordFromTable = async (word: string) => {
@@ -50,8 +50,8 @@ const LearningList = ({allWords, setAllWords, setShowingModal, setResults, setMo
                 <View style={styles.sortContainer}>
                   {
                     sortAZ 
-                    ? <Icon name = {'sort-alpha-up'} style = {styles.sortButtons} onPress = {() => {setSortAZ(!sortAZ); SortAlphabetical(allWords, 'Z-A');}}/>
-                    : <Icon name = {'sort-alpha-down'} style = {styles.sortButtons} onPress ={() => {setSortAZ(!sortAZ); SortAlphabetical(allWords, 'A-Z');}}/>
+                    ? <Icon name = {'sort-alpha-up'} style = {styles.sortButtons} onPress = {() => {setSortAZ(!sortAZ); SortAlphabetical(allWords, 'Z-A', 'word');}}/>
+                    : <Icon name = {'sort-alpha-down'} style = {styles.sortButtons} onPress ={() => {setSortAZ(!sortAZ); SortAlphabetical(allWords, 'A-Z', 'word');}}/>
                   }
                   <Icon name = {'sort-numeric-up'} style = {styles.sortButtons}/>
                 </View>

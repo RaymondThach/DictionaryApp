@@ -27,6 +27,7 @@ const Home = () => {
       const db = await getDBConnection();
       await createTable(db);
       await getAllWords(db).then((res: string[]) => setAllWords(res));
+      console.log(allWords);
     } catch (error) {
       console.log(error);
     }

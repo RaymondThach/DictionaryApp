@@ -74,7 +74,7 @@ export const getAll = async (db: SQLiteDatabase) => {
 
 //Retrieve all words in the LearningWords table
 export const getAllWords = async (db: SQLiteDatabase) => {
-    const get_all_words_query = `SELECT word FROM LearningWords`;
+    const get_all_words_query = `SELECT word, id FROM LearningWords`;
     try {
         const results = await db.executeSql(get_all_words_query);
         const entries: string[] = [];
