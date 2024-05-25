@@ -7,7 +7,6 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import {getDBConnection, getWord, deleteWord, deleteAll} from '../services/db';
 import SortBy from '../utils/SortBy';
 
-
 const LearningList = ({allWords, setShowingModal, setResults, setModalColor, resetList, setOnLearningList}: any) => {
     //State for deleting a word from Learning List
     const [delWord, setDelWord] = useState(String);
@@ -19,7 +18,6 @@ const LearningList = ({allWords, setShowingModal, setResults, setModalColor, res
     const [sortNum, setSortNum] = useState(Boolean);
     //State for confirmation box to distinguish between deleting a word and whole list
     const [delList, setDelList] = useState(Boolean);
-    
     
     //Retrieve the row containing the word from the database then open the modal
     const getWordFromTable = async (word: string) => {
