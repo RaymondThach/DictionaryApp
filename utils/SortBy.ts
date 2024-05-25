@@ -1,4 +1,4 @@
-//Used bubble sort to sort Learning List by alphabetical order, both A-Z and Z-A order
+//Used bubble sort to sort Learning List by alphabetical order and numberically, both A-Z and Z-A order, 1-9 and 9-1
 //isSwapped to prevent full iteration of the array when elements already sorted
 const SortBy = (arr: Array<{id: number, word: string}>, mode: string, field: keyof {id: number, word: string}) => {
     const len = arr.length;

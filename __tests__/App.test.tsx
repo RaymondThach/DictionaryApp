@@ -78,3 +78,10 @@ it('sorts the array, and returns the array alphabetically in A to Z order', () =
   SortBy(array, 'A-Z', 'word');
   expect(array).toEqual([{ id: 40, word: 'assessment' }, { id: 20, word: 'blue' }, {  id: 30, word: 'cartelize' }]);
 });
+
+//SortAlphabetical() within SortAlphabetical.ts, ensure function returns results sorted alphabetically for the Learning List
+it('sorts the array, and returns the array numerically from 1-9 order', () => {
+  const array = [{ "id": 30, "word": "cartelize" }, { "id": 20, "word": "blue" }, { "id": 40, "word": "assessment" }];
+  SortBy(array, '1-9', 'id');
+  expect(array).toEqual([{ id: 20, word: 'blue' }, {  id: 30, word: 'cartelize' }, { id: 40, word: 'assessment' }]);
+});
