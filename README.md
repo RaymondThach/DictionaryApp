@@ -1,6 +1,6 @@
 # Dictionary App
 ## The App and the Problem Space
-This React Native mobile application is designed to alleviate the pesronal problem space of learning new English words conveniently, without needing to access dictionaries or reading books. It provides random new words fetched from a free API, and defined via another with audio pronounciation. These words can be saved to a list for the user to revise and add notes. The list is sortable alphabetically and by recency. Building this application served as an introduction to React Native and TypeScript.
+This React Native mobile application is designed to alleviate the personal problem space of learning new English words conveniently, without needing to access dictionaries or reading books. It provides random new words fetched from a free API, and defined via another with audio pronounciation. These words can be saved to a list for the user to revise and add notes. The list is sortable alphabetically and by recency. Building this application served as an introduction to React Native and TypeScript.
 
 ## Resources
 TypeScript
